@@ -1,5 +1,5 @@
 import { unstable_batchedUpdates } from "react-dom";
-import { fileOpen as _fileOpen } from "browser-fs-access";
+import { fileOpen as _fileOpen, fileSave } from "browser-fs-access";
 import { MIME_TYPES } from "@excalidraw/excalidraw";
 import { AbortError } from "../../packages/excalidraw/errors";
 
@@ -90,6 +90,15 @@ export const fileOpen = <M extends boolean | undefined = false>(opts: {
       };
     },
   }) as Promise<RetType>;
+};
+
+export const fileSaveAll = async (files: File[], folderHandle: FileSystemDirectoryHandle) => {
+  for (const file of files) {
+    const fileHandle = await folderHandle.getFileHandle(file.name, { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(await file.arrayBuffer());
+    await writable.close();
+  }
 };
 
 export const debounce = <T extends any[]>(

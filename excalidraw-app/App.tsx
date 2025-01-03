@@ -128,6 +128,7 @@ import DebugCanvas, {
 import { AIComponents } from "./components/AI";
 import { ExcalidrawPlusIframeExport } from "./ExcalidrawPlusIframeExport";
 import { isElementLink } from "../packages/excalidraw/element/elementLink";
+import { fileSaveAll } from "../../examples/excalidraw/utils"; // Import fileSaveAll function
 
 polyfill();
 
@@ -691,6 +692,11 @@ const ExcalidrawWrapper = () => {
       if (url) {
         setLatestShareableLink(url);
       }
+
+      // Save all files in one folder
+      const folderHandle = await window.showDirectoryPicker();
+      await fileSaveAll(Object.values(files), folderHandle);
+
     } catch (error: any) {
       if (error.name !== "AbortError") {
         const { width, height } = appState;

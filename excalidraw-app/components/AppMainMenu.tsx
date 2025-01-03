@@ -3,6 +3,7 @@ import {
   loginIcon,
   ExcalLogo,
   eyeIcon,
+  dashboardIcon, // Import the dashboard icon
 } from "../../packages/excalidraw/components/icons";
 import type { Theme } from "../../packages/excalidraw/element/types";
 import { MainMenu } from "../../packages/excalidraw/index";
@@ -81,6 +82,14 @@ export const AppMainMenu: React.FC<{
         <LanguageList style={{ width: "100%" }} />
       </MainMenu.ItemCustom>
       <MainMenu.DefaultItems.ChangeCanvasBackground />
+      <MainMenu.Item
+        icon={dashboardIcon}
+        onClick={() => {
+          // Logic to open the dashboard
+        }}
+      >
+        View Dashboard
+      </MainMenu.Item>
     </MainMenu>
   );
 });
